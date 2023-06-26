@@ -350,18 +350,18 @@ const data = [
     Descricao: `
         
         <h2></h2>
-        <img src='/src/img/router2.png' class='img-descricao'>   
+        <img src='/src/img/Router2.png' class='img-descricao'>   
   
         <span>A função 'Router' é responsável por controlar a navegação em um aplicativo web utilizando o conceito de roteamento. Ela recebe um objeto 'Pages' como parâmetro, que contém as definições das páginas do aplicativo.
         
         A função 'Router' possui várias subfunções e é usada para realizar as seguintes tarefas:  </span>
         
         <h2>CUSTOMTAGS</h2><span> Essa função é responsável por processar os elementos HTML personalizados (tags) presentes nas páginas. Ela substitui os elementos personalizados por suas respectivas implementações e adiciona os atributos correspondentes.</span>
-        <img src='/src/img/customtag.png' class='img-descricao'  >  
+        <img src='/src/img/customTag.png' class='img-descricao'  >  
         <h2>DEBOUNCE</h2> <span>Essa função é um utilitário para criar uma versão "debounce" de uma função, ou seja, ela limita a frequência com que a função é executada, evitando chamadas excessivas.</span>
         <img src='/src/img/debounce.png' class='img-descricao'  >  
         <h2>ERRO-PAGE</h2> <span>Essa função gera o conteúdo HTML para exibir a página de erro, caso uma página inválida seja solicitada. Ela cria links para todas as páginas disponíveis no objeto 'Pages'.</span>
-        <img src='/src/img/erropage.png' class='img-descricao'  >  
+        <img src='/src/img/erroPage.png' class='img-descricao'  >  
         <h2>ROUTER-STATE</h2> <span>Essa função extrai o nome da página atual da URL e retorna o nome da página correspondente com base no objeto 'Pages'. Se a URL não corresponder a nenhuma página existente, a página de erro será retornada, 
         depois verificar o estado atual do roteamento e chamar a função 'customtag' para exibir a página correspondente. 
         </span>
