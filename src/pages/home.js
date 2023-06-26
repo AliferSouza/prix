@@ -84,7 +84,7 @@ export default async function Home() {
        Exemplo de uso:  <span>prix.Router</span>
       </h4>
       </div> 
-      <a class="ir-doc" style="color: #000" href="/prix/#/doc/">Documetação</a>
+      <a class="ir-doc" style="color: #000" href="/#/doc/">Documetação</a>
    
   </div> 
 
