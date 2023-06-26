@@ -181,13 +181,11 @@ function $(arg1, arg2) {
 }
 
 
-function Router(Pages) {
+function Router(Pages, components) {
   async function customTags(renderStyle, renderedHtml, renderState) {
-    window.scrollTo(0, 0);
-    const components = await useGetModules("../components/index.js");
+    window.scrollTo(0, 0);   
     const stateFunctions = [];
-console.log(components)
-  
+ 
 
     const divTemporaria = document.createElement("div");
     divTemporaria.insertAdjacentHTML("beforeend", renderedHtml);
