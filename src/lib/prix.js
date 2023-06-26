@@ -186,6 +186,8 @@ function Router(Pages) {
     window.scrollTo(0, 0);
     const components = await useGetModules("../components/index.js");
     const stateFunctions = [];
+console.log(components)
+  
 
     const divTemporaria = document.createElement("div");
     divTemporaria.insertAdjacentHTML("beforeend", renderedHtml);
