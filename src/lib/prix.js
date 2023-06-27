@@ -68,9 +68,8 @@ async function useLocation() {
   }
 }
 
-async function useNavigate(rota) {
-  const Pages = await useGetModules("../pages/index.js");
-  history.pushState(null, null, rota);
+async function useNavigate(Rota, Pages) { 
+  history.pushState(null, null, Rota);
   Router(Pages);
 }
 
@@ -180,12 +179,14 @@ function $(arg1, arg2) {
   }
 }
 
-
 function Router(Pages, components) {
+  console.log(Pages)
   async function customTags(renderStyle, renderedHtml, renderState) {
-    window.scrollTo(0, 0);   
+    window.scrollTo(0, 0);
+   
     const stateFunctions = [];
- 
+
+  
 
     const divTemporaria = document.createElement("div");
     divTemporaria.insertAdjacentHTML("beforeend", renderedHtml);
@@ -193,6 +194,8 @@ function Router(Pages, components) {
     const tagElements = [...divTemporaria.querySelectorAll("*")].filter(
       (element) => element.tagName.toLowerCase().match(/^comp-[a-z]+$/)
     );
+
+
 
     await Promise.all(
       tagElements.map(async (elem, i) => {
@@ -218,25 +221,30 @@ function Router(Pages, components) {
           pagina: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
         };
 
-        const { html, state, styles } = await components[elem.tagName.toLowerCase()](
-          dataApp
-        );
-        newTag.innerText = html();
-      
-        if (typeof styles === "function") {     
-          STYLE.innerHTML += styles()
+        const componentKey = elem.tagName.toLowerCase();
+        if (components.hasOwnProperty(componentKey)) {
+          const {style, html, state  } = await components[componentKey](dataApp);
+         
+          if (typeof style === "function") {   
+              STYLE.innerHTML = style()
+          }
+          if (typeof html === "function") {     
+            newTag.innerHTML = html();
+          }            
+          if (typeof state === "function") {
+            stateFunctions.push(state);
+          }
+        } else {          
+          throw new Error(`Componente não encontrado para a tag: ${componentKey}`);
         }
+        
+     
 
-        if (typeof state === "function") {
-          stateFunctions.push(state);
-        }
+
       })
     );
 
     
-
-
-
     if (typeof renderStyle === "function") {
       STYLE.innerHTML += renderStyle()
     }
