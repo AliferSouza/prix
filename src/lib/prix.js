@@ -180,7 +180,6 @@ function $(arg1, arg2) {
 }
 
 function Router(Pages, components) {
-  console.log(Pages)
   async function customTags(renderStyle, renderedHtml, renderState) {
     window.scrollTo(0, 0);
    
@@ -198,8 +197,8 @@ function Router(Pages, components) {
 
 
     await Promise.all(
-      tagElements.map(async (elem, i) => {
-        console.log()
+      tagElements.map(async (elem, i) => {  
+    
         const newTag = document.createElement(
           `${elem.tagName.toLowerCase()}-${i}`
         );
@@ -212,13 +211,14 @@ function Router(Pages, components) {
         });
 
         const dataApp = {
-          referencia: i,
+          reference: i,
           nameTag: newTag.tagName.toLowerCase(),
           attributes,
           parameter: Object.fromEntries(
             new URLSearchParams(location.href.split("?")[1]).entries()
           ),
-          pagina: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
+          page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
+          content: elem.innerText
         };
 
         const componentKey = elem.tagName.toLowerCase();
@@ -263,7 +263,7 @@ function Router(Pages, components) {
     if (resultUrl === "erro") {
       erroPage(Pages);
     } else {
-      const { html, state, style} = await Pages[resultUrl]();
+      const { html, state, style} = await Pages[resultUrl](Pages);
       const renderStyle= typeof style === "function" ? style : undefined;
       const renderedHtml = typeof html === "function" ? html() : await Pages[resultUrl]();
       const renderState = typeof state === "function" ? state : undefined;
@@ -327,5 +327,4 @@ export {
   useCSS,
   $,
   Router
-
 };
