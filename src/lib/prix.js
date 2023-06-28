@@ -14,16 +14,23 @@ async function useGetModules(caminho) {
   return result;
 }
 
-async function useApi(url, method) {
-  try {
-    const res = await fetch(url, method);
-    const data = await res.json();
-    const valorDta = await data;
-    return valorDta;
-  } catch {
-    return null;
+async function useApi(url, method, useType) {
+    try {
+      const res = await fetch(url, method);
+      let data;
+  
+      if (useType === 'text') {
+        data = await res.text();
+      } else if (useType === 'json') {
+        data = await res.json();
+      }
+  
+      return data;
+    } catch {
+      return null;
+    }
   }
-}
+  
 
 function useLocalStorage(operation, name, props) {
   if (operation === "getItem") {
@@ -181,11 +188,9 @@ function $(arg1, arg2) {
 
 function Router(Pages, components) {
   async function customTags(renderStyle, renderedHtml, renderState) {
-    window.scrollTo(0, 0);
-   
-    const stateFunctions = [];
-
-  
+    window.scrollTo(0, 0);   
+    const stateFunctions = []; 
+    const stateStyles = []; 
 
     const divTemporaria = document.createElement("div");
     divTemporaria.insertAdjacentHTML("beforeend", renderedHtml);
@@ -193,8 +198,6 @@ function Router(Pages, components) {
     const tagElements = [...divTemporaria.querySelectorAll("*")].filter(
       (element) => element.tagName.toLowerCase().match(/^comp-[a-z]+$/)
     );
-
-
 
     await Promise.all(
       tagElements.map(async (elem, i) => {  
@@ -226,7 +229,7 @@ function Router(Pages, components) {
           const {style, html, state  } = await components[componentKey](dataApp);
          
           if (typeof style === "function") {   
-              STYLE.innerHTML = style()
+            stateStyles.push(style);
           }
           if (typeof html === "function") {     
             newTag.innerHTML = html();
@@ -244,9 +247,13 @@ function Router(Pages, components) {
       })
     );
 
-    
     if (typeof renderStyle === "function") {
       STYLE.innerHTML += renderStyle()
+    }
+    const concatenatedClasses = stateStyles.map((style) => style()).join(' ');
+
+    if (typeof concatenatedClasses === "string") {
+      STYLE.innerHTML += concatenatedClasses
     }
 
     ROOT.innerHTML = divTemporaria.innerHTML;
