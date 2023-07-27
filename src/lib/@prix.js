@@ -202,12 +202,13 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
         Data,
         tag: elem,
       };
-
+  
       try {
         if (componentKey) {
           const response = await fetch(
             `${location.origin}/app/components/${componentKey}.js`
           );
+
           const pegarPaginaOculta = await response.text();
 
 
@@ -297,15 +298,10 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
       const response = await fetch(
         `${location.origin}/app/pages/@${currentUrlPage}.js`
       );
-      let pegarPaginaOculta
-      pegarPaginaOculta = await response.text();
+   
+     const pegarPaginaOculta = await response.text();
   
 
-
-      if(Config.Base64 === "true"){        
-        pegarPaginaOculta = atob(pegarPaginaOculta);
-      }
-   
       const retonarPaginaOcultaEmFunção = Function(
         "return " + pegarPaginaOculta
       )();
