@@ -1,0 +1,31 @@
+:root {
+  --cor-primaria: #fe01c7;
+  --cor-secundaria: #ffffff;
+  --tamanho-fonte-title: 16px;
+  --tamanho-fonte-subtitle: 16px;
+  --espacamento-padrao: 10px; 
+}
+
+#Main span  {
+  display: none; 
+}
+
+@media screen and (max-width: 300px) {
+  .lateral{
+  width: 20%;
+
+  }
+  #Main h4 {
+    display: none;
+
+   }
+   #Main h6 {
+    display: none;
+
+   }
+   #Main span {
+    margin: 10px;
+    display: block; 
+  }
+
+  }

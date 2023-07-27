@@ -20,8 +20,10 @@
         <a class="text-white hover:text-red" style="color: #000" href="/#/documentacao/">Documentação</a>
      
     </div> 
-
-  
+    <br>
+    <br>
+    <br>
+    <comp-menu></comp-menu>
  
   
       `;
